@@ -448,7 +448,6 @@ flowchart TD
     class SD fight;
     class ST priority;
     `;
-
     const reviveFlowDefinition = String.raw`
 flowchart TD
     RA[队友完成复活] --> RB[先听地面队友报点]
@@ -500,8 +499,10 @@ flowchart TD
     class RU fight;
     class RS priority;
     `;
+
     let zoneFlowRendered = false;
     let sparkFlowRendered = false;
+    let reviveFlowRendered = false;
 
     mermaid.run({ querySelector: '#launch-flow .mermaid' });
 
@@ -509,27 +510,39 @@ flowchart TD
       if (zoneFlowRendered) return;
       const container = document.getElementById('zone-flow-chart');
       if (!container) return;
-      const { svg } = await mermaid.render('zone-flow-svg', zoneFlowDefinition);
-      container.innerHTML = svg;
-      zoneFlowRendered = true;
+      try {
+        const { svg } = await mermaid.render('zone-flow-svg', zoneFlowDefinition);
+        container.innerHTML = svg;
+        zoneFlowRendered = true;
+      } catch (error) {
+        container.innerHTML = `<div style="color:#ffb4b4;white-space:pre-wrap;font-family:Consolas,monospace;">圈内占点流程图渲染失败\n${String(error)}</div>`;
+      }
     }
 
     async function renderSparkFlow() {
       if (sparkFlowRendered) return;
       const container = document.getElementById('spark-flow-chart');
       if (!container) return;
-      const { svg } = await mermaid.render('spark-flow-svg', sparkFlowDefinition);
-      container.innerHTML = svg;
-      sparkFlowRendered = true;
+      try {
+        const { svg } = await mermaid.render('spark-flow-svg', sparkFlowDefinition);
+        container.innerHTML = svg;
+        sparkFlowRendered = true;
+      } catch (error) {
+        container.innerHTML = `<div style="color:#ffb4b4;white-space:pre-wrap;font-family:Consolas,monospace;">火种流程图渲染失败\n${String(error)}</div>`;
+      }
     }
 
     async function renderReviveFlow() {
       if (reviveFlowRendered) return;
       const container = document.getElementById('revive-flow-chart');
       if (!container) return;
-      const { svg } = await mermaid.render('revive-flow-svg', reviveFlowDefinition);
-      container.innerHTML = svg;
-      reviveFlowRendered = true;
+      try {
+        const { svg } = await mermaid.render('revive-flow-svg', reviveFlowDefinition);
+        container.innerHTML = svg;
+        reviveFlowRendered = true;
+      } catch (error) {
+        container.innerHTML = `<div style="color:#ffb4b4;white-space:pre-wrap;font-family:Consolas,monospace;">复活流程图渲染失败\n${String(error)}</div>`;
+      }
     }
 
     switchButtons.forEach((button) => {
@@ -560,6 +573,14 @@ flowchart TD
   </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
 
 
 
