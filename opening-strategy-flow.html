@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Free Fire BR 战术三流程</title>
+  <title>Free Fire BR 战术四流程</title>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.6/dist/mermaid.min.js"></script>
   <style>
     * { box-sizing: border-box; }
@@ -130,7 +130,7 @@
   <main class="page">
     <header class="header">
       <div>
-        <h1>Free Fire BR 战术三流程</h1>
+        <h1>Free Fire BR 战术四流程</h1>
         <p class="subtitle">开局跳点 → 落地架 → 物资整备 → 军火宝库判断 → 圈内转移 → 遇敌处理</p>
       </div>
       <div class="tag">职业比赛战术卡</div>
@@ -140,6 +140,7 @@
       <button class="switch-btn active" type="button" data-view-target="launch-flow">开局战术</button>
       <button class="switch-btn" type="button" data-view-target="zone-flow">圈内占点</button>
       <button class="switch-btn" type="button" data-view-target="spark-flow">火种计划</button>
+      <button class="switch-btn" type="button" data-view-target="revive-flow">复活跳伞</button>
     </div>
 
     <section class="layout view-panel" id="launch-flow">
@@ -290,6 +291,30 @@ flowchart TD
         <div class="footer-note">核心逻辑：火种计划的价值不是换一个人头，而是保住最后火种，脱战后找最近购买点复活队友，让队伍重新回到比赛里。</div>
       </aside>
     </section>
+
+    <section class="layout view-panel" id="revive-flow" hidden>
+      <div class="card">
+        <div class="card-title">
+          <strong>复活流程</strong>
+          <span>默认目标：复活后快速判断集结支援还是转点落位</span>
+        </div>
+        <div class="flow-wrap">
+          <div id="revive-flow-chart" class="mermaid"></div>
+        </div>
+      </div>
+
+      <aside class="card side">
+        <h2>复活口令</h2>
+        <div class="rule-list">
+          <div class="rule"><b>1. 先听地面</b><p>复活前先听地面队友汇报附近是否有敌人、敌人压力方向和可落区域。</p></div>
+          <div class="rule"><b>2. 一人复活</b><p>优先补火种和信息，不盲目贴地面，压力大时可直接跳新点位。</p></div>
+          <div class="rule"><b>3. 两人复活</b><p>先确认能否与地面形成双向照应，能支援就统一落地，不能就转新点位整备。</p></div>
+          <div class="rule"><b>4. 三人复活</b><p>人数恢复后优先统一战线，能打支援团就集中降落到地面队友附近优势点位。</p></div>
+          <div class="rule"><b>5. 主线优先</b><p>如果地面压力过大或落点风险高，复活队员直接按主线任务去圈内占点，不强行回原战场。</p></div>
+        </div>
+        <div class="footer-note">核心逻辑：复活跳伞不是固定回原位，而是先听地面信息，再判断支援价值、落点安全和主线任务优先级。</div>
+      </aside>
+    </section>
   </main>
 
   <script>
@@ -405,7 +430,11 @@ flowchart TD
     SP -->|是| SO
     SP -->|否| SN
 
-    SO --> SQ[保留火种继续运营]
+    SO --> SQ{当前是否已经安全}
+    SQ -->|安全| SR[前往最近购买点复活队友]
+    SQ -->|未安全| SN
+
+    SR --> ST[全军复活后回到比赛里]
 
     classDef start fill:#3a6ff7,stroke:#dce6ff,color:#ffffff,stroke-width:2px;
     classDef action fill:#1f2b3b,stroke:#7f8da3,color:#f4f7fb,stroke-width:1.5px;
@@ -414,12 +443,63 @@ flowchart TD
     classDef priority fill:#223d2c,stroke:#7dffad,color:#effff4,stroke-width:2px;
 
     class SA start;
-    class SB,SC,SD,SF,SG,SI,SJ,SL,SN,SO action;
-    class SE,SH,SK,SM,SP decision;
+    class SB,SC,SD,SF,SG,SI,SJ,SL,SN,SO,SR action;
+    class SE,SH,SK,SM,SP,SQ decision;
     class SD fight;
-    class SQ priority;
+    class ST priority;
     `;
 
+    const reviveFlowDefinition = String.raw`
+flowchart TD
+    RA[队友完成复活] --> RB[先听地面队友报点]
+    RB --> RC{附近是否有敌人压力}
+
+    RC -->|压力大| RD[先判断是否必须支援]
+    RC -->|压力小| RE[优先找安全落区]
+
+    RD --> RF{复活人数是多少}
+    RE --> RF
+
+    RF -->|1人| RG[优先补火种和信息]
+    RF -->|2人| RH[判断能否形成双向照应]
+    RF -->|3人| RI[准备统一战线支援]
+
+    RG --> RJ{地面压力是否过大}
+    RJ -->|是| RK[直接跳新点位]
+    RJ -->|否| RL[落地面队友附近次优安全点]
+
+    RH --> RM{能否安全支援地面}
+    RM -->|能| RN[两人统一降落支援]
+    RM -->|不能| RK
+
+    RI --> RO{是否需要立刻支援}
+    RO -->|需要| RP[全员统一降落到地面队友附近优势点]
+    RO -->|不需要| RK
+
+    RK --> RQ[新点位参考主线圈内占点]
+    RL --> RS[与地面保持照应]
+    RN --> RS
+    RP --> RS
+
+    RS --> RT{落地后当前高优先级是什么}
+    RQ --> RT
+
+    RT -->|支援地面| RU[统一集火快速处理]
+    RT -->|重新运营| RV[整备物资后按主线转移]
+    RT -->|占圈点位| RW[直接执行圈内占点流程]
+
+    classDef start fill:#3a6ff7,stroke:#dce6ff,color:#ffffff,stroke-width:2px;
+    classDef action fill:#1f2b3b,stroke:#7f8da3,color:#f4f7fb,stroke-width:1.5px;
+    classDef decision fill:#3b2d1c,stroke:#ffc46b,color:#fff6e3,stroke-width:2px;
+    classDef fight fill:#562329,stroke:#ff7b7b,color:#fff1f1,stroke-width:2px;
+    classDef priority fill:#223d2c,stroke:#7dffad,color:#effff4,stroke-width:2px;
+
+    class RA start;
+    class RB,RD,RE,RG,RH,RI,RK,RL,RN,RP,RQ,RU,RV,RW action;
+    class RC,RF,RJ,RM,RO,RT decision;
+    class RU fight;
+    class RS priority;
+    `;
     let zoneFlowRendered = false;
     let sparkFlowRendered = false;
 
@@ -443,6 +523,15 @@ flowchart TD
       sparkFlowRendered = true;
     }
 
+    async function renderReviveFlow() {
+      if (reviveFlowRendered) return;
+      const container = document.getElementById('revive-flow-chart');
+      if (!container) return;
+      const { svg } = await mermaid.render('revive-flow-svg', reviveFlowDefinition);
+      container.innerHTML = svg;
+      reviveFlowRendered = true;
+    }
+
     switchButtons.forEach((button) => {
       button.addEventListener('click', async () => {
         const targetId = button.getAttribute('data-view-target');
@@ -462,11 +551,18 @@ flowchart TD
         if (targetId === 'spark-flow') {
           await renderSparkFlow();
         }
+
+        if (targetId === 'revive-flow') {
+          await renderReviveFlow();
+        }
       });
     });
   </script>
 </body>
 </html>
+
+
+
 
 
 
