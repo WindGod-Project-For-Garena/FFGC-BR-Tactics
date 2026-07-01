@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Free Fire BR 开局战术流程图</title>
+  <title>Free Fire BR 战术三流程</title>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.6/dist/mermaid.min.js"></script>
   <style>
     * { box-sizing: border-box; }
@@ -130,7 +130,7 @@
   <main class="page">
     <header class="header">
       <div>
-        <h1>Free Fire BR 开局战术流程图</h1>
+        <h1>Free Fire BR 战术三流程</h1>
         <p class="subtitle">开局跳点 → 落地架 → 物资整备 → 军火宝库判断 → 圈内转移 → 遇敌处理</p>
       </div>
       <div class="tag">职业比赛战术卡</div>
@@ -138,13 +138,14 @@
 
     <div class="switcher" aria-label="Main flow switcher">
       <button class="switch-btn active" type="button" data-view-target="launch-flow">开局战术</button>
-      <button class="switch-btn" type="button" data-view-target="zone-flow">圈内优劣势占点打法</button>
+      <button class="switch-btn" type="button" data-view-target="zone-flow">圈内占点</button>
+      <button class="switch-btn" type="button" data-view-target="spark-flow">火种计划</button>
     </div>
 
     <section class="layout view-panel" id="launch-flow">
       <div class="card">
         <div class="card-title">
-          <strong>主流程图</strong>
+          <strong>开局流程</strong>
           <span>默认目标：优先进圈并完成当前高优先级任务</span>
         </div>
         <div class="flow-wrap">
@@ -231,13 +232,13 @@ flowchart TD
       </div>
 
       <aside class="card side">
-        <h2>执行口令</h2>
+        <h2>开局口令</h2>
         <div class="rule-list">
-          <div class="rule"><b>1. 落地原则</b><p>同跳就先处理落地架，打赢以后立刻整备，不继续主动找架。</p></div>
-          <div class="rule"><b>2. 进圈原则</b><p>看完圈以后先定圈内点位，再规划路线，不边走边乱决策。</p></div>
-          <div class="rule"><b>3. 军火宝库原则</b><p>WindGod 没有狙击枪时优先找最近军火宝库；队友缺熟练枪或护甲差时也可以顺路补。</p></div>
-          <div class="rule"><b>4. 遇敌原则</b><p>转移途中非撞脸、非优势，不主动接战，当前任务优先。</p></div>
-          <div class="rule"><b>5. 战斗后原则</b><p>无论是否团灭敌方，战斗结束后只拿必要物资，立刻回到当前高优先级任务。</p></div>
+          <div class="rule"><b>1. 落地</b><p>同跳就先处理落地架，打赢以后立刻整备，不继续主动找架。</p></div>
+          <div class="rule"><b>2. 进圈</b><p>看完圈以后先定圈内点位，再规划路线，不边走边乱决策。</p></div>
+          <div class="rule"><b>3. 军火宝库</b><p>WindGod 没有狙击枪时优先找最近军火宝库；队友缺熟练枪或护甲差时也可以顺路补。</p></div>
+          <div class="rule"><b>4. 遇敌决策</b><p>转移途中非撞脸、非优势，不主动接战，当前任务优先。</p></div>
+          <div class="rule"><b>5. 战后回任务</b><p>无论是否团灭敌方，战斗结束后只拿必要物资，立刻回到当前高优先级任务。</p></div>
         </div>
         <div class="footer-note">核心逻辑：打架是为了解决阻碍，不是为了偏离运营路线。所有行动都服务于整备、进圈、占点和保留中期主动权。</div>
       </aside>
@@ -246,7 +247,7 @@ flowchart TD
     <section class="layout view-panel" id="zone-flow" hidden>
       <div class="card">
         <div class="card-title">
-          <strong>圈内优劣势占点打法</strong>
+          <strong>占点流程</strong>
           <span>默认目标：先拿信息，再判断稳控、换点还是局部强打</span>
         </div>
         <div class="flow-wrap">
@@ -255,15 +256,38 @@ flowchart TD
       </div>
 
       <aside class="card side">
-        <h2>占点执行口令</h2>
+        <h2>占点口令</h2>
         <div class="rule-list">
-          <div class="rule"><b>1. 先判站位</b><p>先看掩体、视野、退路，不能站的点不要硬占，先换副点。</p></div>
-          <div class="rule"><b>2. 优势不乱冲</b><p>拿到高点、房区、反斜后先控枪线和信息，用敌人来撞我方优势面。</p></div>
-          <div class="rule"><b>3. 劣势先换点</b><p>正面劣势时优先绕边、转副点，只有必须清路时才统一强打局部。</p></div>
-          <div class="rule"><b>4. 打也只打短团</b><p>只接能快速结束的团，不能拖成长时间拉扯，更不能丢掉进圈节奏。</p></div>
-          <div class="rule"><b>5. 占点后重建枪线</b><p>清点或逼退成功后，不散开追人，立刻补位、防侧翼、防第三方。</p></div>
+          <div class="rule"><b>1. 站位判断</b><p>先看掩体、视野、退路，不能站的点不要硬占，先换副点。</p></div>
+          <div class="rule"><b>2. 优势控点</b><p>拿到高点、房区、反斜后先控枪线和信息，用敌人来撞我方优势面。</p></div>
+          <div class="rule"><b>3. 劣势换点</b><p>正面劣势时优先绕边、转副点，只有必须清路时才统一强打局部。</p></div>
+          <div class="rule"><b>4. 短团处理</b><p>只接能快速结束的团，不能拖成长时间拉扯，更不能丢掉进圈节奏。</p></div>
+          <div class="rule"><b>5. 重建枪线</b><p>清点或逼退成功后，不散开追人，立刻补位、防侧翼、防第三方。</p></div>
         </div>
         <div class="footer-note">核心逻辑：圈内不是看到人就冲，而是先判断我方当前是不是站在值得打的位置。优势就控，劣势就换，必须打时只抢局部，不打无收益长团。</div>
+      </aside>
+    </section>
+    <section class="layout view-panel" id="spark-flow" hidden>
+      <div class="card">
+        <div class="card-title">
+          <strong>火种流程</strong>
+          <span>默认目标：最后一人快速脱战，保留队伍延续机会</span>
+        </div>
+        <div class="flow-wrap">
+          <div id="spark-flow-chart" class="mermaid"></div>
+        </div>
+      </div>
+
+      <aside class="card side">
+        <h2>火种口令</h2>
+        <div class="rule-list">
+          <div class="rule"><b>1. 启动火种</b><p>队伍仅剩一人时，立刻停止常规作战思路，直接切换火种计划。</p></div>
+          <div class="rule"><b>2. 快速脱战</b><p>第一目标不是反打，而是用最快速度脱离当前战场和敌方火力范围；如果附近有滑轨，优先滑轨撤离。</p></div>
+          <div class="rule"><b>3. 卡视野</b><p>逃跑途中持续利用墙体、房区、反斜、地形和载具切断敌方视野。</p></div>
+          <div class="rule"><b>4. 最优路线</b><p>路线必须优先选择最快远离敌人视野、枪线和追击方向的那一条。</p></div>
+          <div class="rule"><b>5. 购买点复活</b><p>成功脱离并确认安全后，优先前往附近最近的购买点复活队友，不为补枪和回头观察冒险。</p></div>
+        </div>
+        <div class="footer-note">核心逻辑：火种计划的价值不是换一个人头，而是保住最后火种，脱战后找最近购买点复活队友，让队伍重新回到比赛里。</div>
       </aside>
     </section>
   </main>
@@ -351,8 +375,53 @@ flowchart TD
     class N2 fight;
     class T2 priority;
     `;
+    const sparkFlowDefinition = String.raw`
+flowchart TD
+    SA[队伍仅剩一人] --> SB[立刻启动火种计划]
+    SB --> SC[停止原地对枪]
+    SC --> SD[用最快速度脱离战场]
+
+    SD --> SE{附近是否有可用障碍物}
+    SE -->|有| SF[利用墙体房区反斜卡视野]
+    SE -->|没有| SG[立刻拉直线放冰墙脱离枪线]
+
+    SF --> SH{当前路线是否远离敌方视野}
+    SG --> SH
+
+    SH -->|是| SI[继续沿最短安全路线撤离]
+    SH -->|否| SJ[立刻调整方向重新绕障碍]
+
+    SJ --> SK{是否找到更好的脱离路线}
+    SK -->|找到| SI
+    SK -->|未找到| SL[继续拉距离不回头]
+
+    SI --> SM{敌人是否还在追击}
+    SL --> SM
+
+    SM -->|是| SN[持续卡视野并延长距离]
+    SM -->|否| SO[进入隐蔽区恢复状态]
+
+    SN --> SP{是否已经脱离敌方视野}
+    SP -->|是| SO
+    SP -->|否| SN
+
+    SO --> SQ[保留火种继续运营]
+
+    classDef start fill:#3a6ff7,stroke:#dce6ff,color:#ffffff,stroke-width:2px;
+    classDef action fill:#1f2b3b,stroke:#7f8da3,color:#f4f7fb,stroke-width:1.5px;
+    classDef decision fill:#3b2d1c,stroke:#ffc46b,color:#fff6e3,stroke-width:2px;
+    classDef fight fill:#562329,stroke:#ff7b7b,color:#fff1f1,stroke-width:2px;
+    classDef priority fill:#223d2c,stroke:#7dffad,color:#effff4,stroke-width:2px;
+
+    class SA start;
+    class SB,SC,SD,SF,SG,SI,SJ,SL,SN,SO action;
+    class SE,SH,SK,SM,SP decision;
+    class SD fight;
+    class SQ priority;
+    `;
 
     let zoneFlowRendered = false;
+    let sparkFlowRendered = false;
 
     mermaid.run({ querySelector: '#launch-flow .mermaid' });
 
@@ -363,6 +432,15 @@ flowchart TD
       const { svg } = await mermaid.render('zone-flow-svg', zoneFlowDefinition);
       container.innerHTML = svg;
       zoneFlowRendered = true;
+    }
+
+    async function renderSparkFlow() {
+      if (sparkFlowRendered) return;
+      const container = document.getElementById('spark-flow-chart');
+      if (!container) return;
+      const { svg } = await mermaid.render('spark-flow-svg', sparkFlowDefinition);
+      container.innerHTML = svg;
+      sparkFlowRendered = true;
     }
 
     switchButtons.forEach((button) => {
@@ -380,11 +458,20 @@ flowchart TD
         if (targetId === 'zone-flow') {
           await renderZoneFlow();
         }
+
+        if (targetId === 'spark-flow') {
+          await renderSparkFlow();
+        }
       });
     });
   </script>
 </body>
 </html>
+
+
+
+
+
 
 
 
