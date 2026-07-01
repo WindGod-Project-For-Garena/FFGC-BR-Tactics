@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Fire BR 开局战术流程图</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.6/dist/mermaid.min.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+      background: radial-gradient(circle at top, #283443 0%, #141922 45%, #0b0f16 100%);
+      color: #f3f6fb;
+      padding: 32px;
+    }
+    .page { max-width: 1500px; margin: 0 auto; }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.14);
+      padding-bottom: 18px;
+    }
+    h1 { margin: 0 0 8px; font-size: 34px; letter-spacing: 1px; color: #fff; }
+    .subtitle { margin: 0; color: #aeb9ca; font-size: 15px; }
+    .tag {
+      flex-shrink: 0;
+      padding: 10px 16px;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 999px;
+      color: #dbe7ff;
+      background: rgba(255,255,255,0.07);
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 22px;
+      align-items: start;
+    }
+    .switcher {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .switch-btn {
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      color: #d7e3f7;
+      border-radius: 14px;
+      padding: 12px 18px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+    .switch-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255,196,107,0.5);
+    }
+    .switch-btn.active {
+      background: linear-gradient(90deg, rgba(255,183,77,0.24), rgba(63,136,255,0.18));
+      border-color: rgba(255,196,107,0.65);
+      color: #fff7e9;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.22);
+    }
+    .view-panel[hidden] { display: none; }
+    .card {
+      background: rgba(18,24,34,0.9);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+      border-radius: 22px;
+      overflow: hidden;
+    }
+    .card-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      background: linear-gradient(90deg, rgba(255,183,77,0.2), rgba(63,136,255,0.11));
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    .card-title strong { font-size: 18px; }
+    .card-title span { color: #aeb9ca; font-size: 13px; }
+    .flow-wrap {
+      padding: 24px;
+      overflow: auto;
+      min-height: 760px;
+      background:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .mermaid { min-width: 1180px; display: flex; justify-content: center; }
+    .side { padding: 20px; }
+    .side h2 { margin: 0 0 14px; font-size: 20px; }
+    .rule-list { display: flex; flex-direction: column; gap: 12px; }
+    .rule {
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .rule b { display: block; color: #ffd38a; margin-bottom: 6px; font-size: 15px; }
+    .rule p { margin: 0; color: #c8d1df; line-height: 1.55; font-size: 13px; }
+    .footer-note {
+      margin-top: 22px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255,183,77,0.08);
+      border: 1px solid rgba(255,183,77,0.18);
+      color: #ffe0a8;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+    @media (max-width: 1100px) {
+      body { padding: 18px; }
+      .layout { grid-template-columns: 1fr; }
+      .header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="header">
+      <div>
+        <h1>Free Fire BR 开局战术流程图</h1>
+        <p class="subtitle">开局跳点 → 落地架 → 物资整备 → 军火宝库判断 → 圈内点位转移 → 遇敌处理</p>
+      </div>
+      <div class="tag">职业比赛战术版</div>
+    </header>
+
+    <div class="switcher" aria-label="Main flow switcher">
+      <button class="switch-btn active" type="button" data-view-target="launch-flow">开局战术</button>
+      <button class="switch-btn" type="button" data-view-target="zone-flow">圈内优劣势占点打法</button>
+    </div>
+
+    <section class="layout view-panel" id="launch-flow">
+      <div class="card">
+        <div class="card-title">
+          <strong>主流程图</strong>
+          <span>默认目标：优先进圈与完成高优先级任务</span>
+        </div>
+        <div class="flow-wrap">
+          <pre class="mermaid">
+flowchart TD
+    A["开局跳点"] --> B{"落点是否有人"}
+
+    B -->|无人| C["按分区快速搜物资"]
+    B -->|有人| D["进入落地架"]
+
+    D --> E{"是否打赢落地架"}
+    E -->|打赢| F["快速舔包与整备"]
+    E -->|打输或掉人严重| Z["保命撤离<br/>尽量止损"]
+
+    C --> F
+    F --> G["观察下一个安全区"]
+    G --> H["确定圈内目标点位"]
+    H --> I["提前规划转移路线"]
+
+    I --> J{"WindGod是否有狙击枪"}
+    J -->|没有| K["寻找最近军火宝库"]
+    J -->|有1把或2把| L{"队伍是否缺熟练枪<br/>或需要升级护甲"}
+
+    L -->|是| K
+    L -->|否| M["直接向圈内目标点位进发"]
+
+    K --> N{"军火宝库是否顺路<br/>且风险可控"}
+    N -->|是| O["前往军火宝库整备"]
+    N -->|否| M
+
+    O --> P["补齐狙击枪<br/>熟练枪<br/>护甲"]
+    P --> M
+
+    M --> Q{"转移途中是否遇敌"}
+    Q -->|没遇敌| R["继续前往当前目标"]
+    Q -->|遇敌| S{"是否撞脸"}
+
+    S -->|是| T["必须接战"]
+    S -->|否| U{"我方是否占优势点位"}
+
+    U -->|是| V{"能否快速结束战斗<br/>且不影响进圈"}
+    U -->|否| W["不主动战斗<br/>继续转移"]
+
+    V -->|能| T
+    V -->|不能| W
+
+    T --> X["快速解决战斗"]
+    X --> Y["只舔必要物资<br/>立即回到当前任务"]
+
+    W --> R
+    Y --> R
+
+    R --> AA{"当前高优先级任务是什么"}
+    AA -->|军火宝库| K
+    AA -->|圈内点位| AB["继续前往圈内点位"]
+
+    AB --> AC{"下一个圈是否即将缩小"}
+    AC -->|是| AD["停止拖延<br/>优先进圈或占点"]
+    AC -->|否| AE["继续按路线执行"]
+
+    AD --> AF["到达圈内目标点位"]
+    AE --> AF
+
+    classDef start fill:#3a6ff7,stroke:#dce6ff,color:#ffffff,stroke-width:2px;
+    classDef action fill:#1f2b3b,stroke:#7f8da3,color:#f4f7fb,stroke-width:1.5px;
+    classDef decision fill:#3b2d1c,stroke:#ffc46b,color:#fff6e3,stroke-width:2px;
+    classDef fight fill:#562329,stroke:#ff7b7b,color:#fff1f1,stroke-width:2px;
+    classDef priority fill:#223d2c,stroke:#7dffad,color:#effff4,stroke-width:2px;
+
+    class A start;
+    class C,F,G,H,I,K,M,O,P,R,W,Y,AB,AD,AE action;
+    class B,E,J,L,N,Q,S,U,V,AA,AC decision;
+    class D,T,X,Z fight;
+    class AF priority;
+          </pre>
+        </div>
+      </div>
+
+      <aside class="card side">
+        <h2>执行口令</h2>
+        <div class="rule-list">
+          <div class="rule"><b>1. 落地原则</b><p>落点有人就打落地架，打赢后快速整备，不继续主动找架。</p></div>
+          <div class="rule"><b>2. 进圈原则</b><p>扫下一个圈后，先定圈内点位，再规划路线，不能边走边乱决策。</p></div>
+          <div class="rule"><b>3. 军火宝库原则</b><p>WindGod没有狙击枪时，优先找最近军火宝库；队友缺熟练枪或低甲时，也可顺路整备。</p></div>
+          <div class="rule"><b>4. 遇敌原则</b><p>转移途中非撞脸、非优势点位，不主动战斗，当前任务优先。</p></div>
+          <div class="rule"><b>5. 战斗后原则</b><p>无论是否团灭，战斗结束后只舔必要物资，立刻回到当前高优先级任务。</p></div>
+        </div>
+        <div class="footer-note">核心逻辑：打架是为了解决阻碍，不是为了偏离运营路线。所有行动都服务于整备、进圈、占点和保留决赛圈主动权。</div>
+      </aside>
+    </section>
+
+    <section class="layout view-panel" id="zone-flow" hidden>
+      <div class="card">
+        <div class="card-title">
+          <strong>圈内优劣势占点打法</strong>
+          <span>默认目标：先拿信息，再判断稳控、换点还是局部强打</span>
+        </div>
+        <div class="flow-wrap">
+          <pre class="mermaid">
+flowchart TD
+    A["进入圈内目标点位"] --> B{"当前点位是否具备<br/>掩体 / 视野 / 退路"}
+    B -->|是| C{"我方当前是优势位<br/>还是劣势位"}
+    B -->|否| D["不硬占当前点<br/>立刻转副点或边点"]
+
+    C -->|优势位| E["先控枪线与信息<br/>分层站位, 留人看侧后"]
+    C -->|劣势位| F{"是否能安全换点<br/>或继续绕边"}
+
+    E --> G{"敌人是否必须推进<br/>或穿过我方枪线"}
+    G -->|是| H["交叉火力消耗<br/>优先打先手和冒头位"]
+    G -->|否| I["稳控视野与圈边<br/>不主动下点追击"]
+
+    F -->|能| J["直接换点<br/>避免硬打正面劣势枪"]
+    F -->|不能| K{"该点是否必须拿下<br/>否则无法继续进圈"}
+
+    K -->|是| L["统一侧向推进<br/>冰墙 / 投掷物 / 集火抢局部"]
+    K -->|否| J
+
+    H --> M{"是否已经打出人数差<br/>或压低敌方状态"}
+    I --> N{"圈缩前是否必须继续前压"}
+    L --> M
+
+    M -->|是| O["短时间清点或逼退敌方<br/>迅速接管有利位置"]
+    M -->|否| P["不拖长战斗<br/>回到稳控和观察"]
+
+    N -->|是| Q["沿掩体链小步前压<br/>保持可撤退路线"]
+    N -->|否| P
+
+    D --> R["重新选择可站点位"]
+    J --> R
+    O --> S["占住新点后重建枪线"]
+    P --> S
+    Q --> S
+    R --> S
+
+    S --> T{"下一步高优先级是什么"}
+    T -->|继续控点| U["保信息 / 保枪线 / 防第三方"]
+    T -->|准备转移| V["提前找车 / 规划路线 / 分批移动"]
+    T -->|准备接战| W["明确集火方向<br/>只打能快速结束的团"]
+
+    classDef start fill:#3a6ff7,stroke:#dce6ff,color:#ffffff,stroke-width:2px;
+    classDef action fill:#1f2b3b,stroke:#7f8da3,color:#f4f7fb,stroke-width:1.5px;
+    classDef decision fill:#3b2d1c,stroke:#ffc46b,color:#fff6e3,stroke-width:2px;
+    classDef fight fill:#562329,stroke:#ff7b7b,color:#fff1f1,stroke-width:2px;
+    classDef priority fill:#223d2c,stroke:#7dffad,color:#effff4,stroke-width:2px;
+
+    class A start;
+    class D,E,H,I,J,L,O,P,Q,R,U,V,W action;
+    class B,C,F,G,K,M,N,T decision;
+    class L fight;
+    class S priority;
+          </pre>
+        </div>
+      </div>
+
+      <aside class="card side">
+        <h2>占点执行口令</h2>
+        <div class="rule-list">
+          <div class="rule"><b>1. 先判站位</b><p>先看掩体、视野、退路，不能站的点不要硬占，先换副点。</p></div>
+          <div class="rule"><b>2. 优势不乱冲</b><p>拿到高点、房区、反斜后先控枪线和信息，用敌人来撞我方优势面。</p></div>
+          <div class="rule"><b>3. 劣势先换点</b><p>正面劣势时优先绕边、转副点，只有必须清路时才统一强打局部。</p></div>
+          <div class="rule"><b>4. 打也只打短团</b><p>只接能快速结束的团，不能拖成长时间拉扯，更不能丢掉进圈节奏。</p></div>
+          <div class="rule"><b>5. 占点后马上重建枪线</b><p>清点或逼退成功后，不散开追人，立刻补位、防侧翼、防第三方。</p></div>
+        </div>
+        <div class="footer-note">核心逻辑：圈内不是看到人就冲，而是先判断我方当前是不是站在“值得打”的位置。优势就控，劣势就换，必须打时只抢局部，不打无收益长团。</div>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'base',
+      securityLevel: 'loose',
+      htmlLabels: true,
+      themeVariables: {
+        background: 'transparent',
+        primaryColor: '#1f2b3b',
+        primaryTextColor: '#f4f7fb',
+        primaryBorderColor: '#7f8da3',
+        lineColor: '#aeb9ca',
+        secondaryColor: '#263447',
+        tertiaryColor: '#141922',
+        fontFamily: 'Microsoft YaHei, PingFang SC, Arial'
+      },
+      flowchart: {
+        curve: 'basis',
+        nodeSpacing: 48,
+        rankSpacing: 70,
+        padding: 14,
+        htmlLabels: true
+      }
+    });
+
+    const switchButtons = document.querySelectorAll('[data-view-target]');
+    const panels = document.querySelectorAll('.view-panel');
+
+    switchButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const targetId = button.getAttribute('data-view-target');
+
+        switchButtons.forEach((item) => {
+          item.classList.toggle('active', item === button);
+        });
+
+        panels.forEach((panel) => {
+          panel.hidden = panel.id !== targetId;
+        });
+      });
+    });
+  </script>
+</body>
+</html>
